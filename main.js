@@ -22,7 +22,7 @@ Conway.prototype.generateGrid = function(size) {
 };
 
 Conway.prototype.show = function() {
-  console.log("\033[2J");
+  // process.stdout.write('\u001B[0;0f');
   for (var i = 0; i < this.size; i++) {
     var row = this.grid[i];
     var rowString = [];
@@ -31,7 +31,7 @@ Conway.prototype.show = function() {
       if (cell.alive) {
         rowString += "X|";
       } else {
-        rowString += " |"
+        rowString += " |";
       }
     }
     console.log(rowString);
@@ -41,9 +41,6 @@ Conway.prototype.show = function() {
 // if less than 2 neighbors, cell dies -- isUnderPopulated(x,y)
 // if more than 3 neighbors, cell dies
 // if dead, and exactly 3 neighbors, cell is reborn
-// update neighbors for cells**
-
-
 // update neighbors for cells**
 
 Conway.prototype.isUnderPopulated = function(r,c) {
@@ -61,11 +58,57 @@ Conway.prototype.isResurrectable = function(r,c) {
   return !cell.alive && cell.neighbors === 3;
 };
 
+Conway.prototype.isInBounds = function(r,c) {
+  return r >= 0 && r < this.size && c >= 0 && c < this.size;
+};
+
 Conway.prototype.updateNeighborsForCell = function(r,c) {
   var cell = this.grid[c][r];
+  var neighbors = 0;
   for (var i = 0; i < this.directions.length; i++) {
-    var direction = this.directions[i]
+    var direction = this.directions[i];
+    var dr = direction[0];
+    var dc = direction[1];
+    if (this.isInBounds(r + dr, c + dc)) {
+      var neighbor = this.grid[r + dr][c + dc];
+      if (neighbor.alive) {
+        cell.neighbors++;
+      }
+    }
   }
 };
-// var conway = new Conway(40);
-// conway.show();
+
+Conway.prototype.updateNeighbors = function() {
+  for (var i = 0; i < this.size; i++) {
+    for (var j = 0; j < this.size; j++) {
+      this.updateNeighborsForCell(i,j);
+    }
+  }
+};
+
+Conway.prototype.updateStateForCell = function(r,c) {
+  var cell = this.grid[r][c];
+  if (this.isUnderPopulated(r,c) || this.isOverPopulated(r,c)) {
+    cell.alive = false;
+  } else if (this.isResurrectable(r,c)) {
+    cell.alive = true;
+  }
+};
+
+Conway.prototype.updateStates = function() {
+  for (var i = 0; i < this.size; i++) {
+    for (var j = 0; j < this.size; j++) {
+      this.updateNeighborsForCell(i,j)
+    }
+  }
+};
+
+
+
+var conway = new Conway(70);
+
+var interval = setInterval(function () {
+  conway.show(conway.updateNeighbors(conway.updateStates()));
+  
+  
+}, 0);
