@@ -1,15 +1,15 @@
 function Cell () {
-  this.alive = Math.random() < 0.7;
+  this.alive = Math.random() < 0.70;
   this.neighbors = 0; // live neighbors
 };
 
-function Conway (size) {
+function Game (size) {
   this.size = size;
   this.grid = this.generateGrid(size);
   this.directions = [ [-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1] ];
 };
 
-Conway.prototype.generateGrid = function(size) {
+Game.prototype.generateGrid = function(size) {
   var grid = [];
   for (var i = 0; i < size; i++) {
     var row = [];
@@ -21,8 +21,7 @@ Conway.prototype.generateGrid = function(size) {
   return grid;
 };
 
-Conway.prototype.show = function() {
-  // process.stdout.write('\u001B[0;0f');
+Game.prototype.show = function() {
   for (var i = 0; i < this.size; i++) {
     var row = this.grid[i];
     var rowString = [];
@@ -43,27 +42,27 @@ Conway.prototype.show = function() {
 // if dead, and exactly 3 neighbors, cell is reborn
 // update neighbors for cells**
 
-Conway.prototype.isUnderPopulated = function(r,c) {
-  var cell = this.grid[c][r];
+Game.prototype.isUnderPopulated = function(r,c) {
+  var cell = this.grid[r][c];
   return cell.neighbors < 2;
 };
 
-Conway.prototype.isOverPopulated = function(r,c) {
-  var cell = this.grid[c][r];
+Game.prototype.isOverPopulated = function(r,c) {
+  var cell = this.grid[r][c];
   return cell.neighbors > 3;
 };
 
-Conway.prototype.isResurrectable = function(r,c) {
-  var cell = this.grid[c][r];
+Game.prototype.isResurrectable = function(r,c) {
+  var cell = this.grid[r][c];
   return !cell.alive && cell.neighbors === 3;
 };
 
-Conway.prototype.isInBounds = function(r,c) {
+Game.prototype.isInBounds = function(r,c) {
   return r >= 0 && r < this.size && c >= 0 && c < this.size;
 };
 
-Conway.prototype.updateNeighborsForCell = function(r,c) {
-  var cell = this.grid[c][r];
+Game.prototype.updateNeighborsForCell = function(r,c) {
+  var cell = this.grid[r][c];
   var neighbors = 0;
   for (var i = 0; i < this.directions.length; i++) {
     var direction = this.directions[i];
@@ -78,7 +77,7 @@ Conway.prototype.updateNeighborsForCell = function(r,c) {
   }
 };
 
-Conway.prototype.updateNeighbors = function() {
+Game.prototype.updateNeighbors = function() {
   for (var i = 0; i < this.size; i++) {
     for (var j = 0; j < this.size; j++) {
       this.updateNeighborsForCell(i,j);
@@ -86,7 +85,7 @@ Conway.prototype.updateNeighbors = function() {
   }
 };
 
-Conway.prototype.updateStateForCell = function(r,c) {
+Game.prototype.updateStateForCell = function(r,c) {
   var cell = this.grid[r][c];
   if (this.isUnderPopulated(r,c) || this.isOverPopulated(r,c)) {
     cell.alive = false;
@@ -95,7 +94,7 @@ Conway.prototype.updateStateForCell = function(r,c) {
   }
 };
 
-Conway.prototype.updateStates = function() {
+Game.prototype.updateStates = function() {
   for (var i = 0; i < this.size; i++) {
     for (var j = 0; j < this.size; j++) {
       this.updateNeighborsForCell(i,j)
@@ -105,10 +104,13 @@ Conway.prototype.updateStates = function() {
 
 
 
-var conway = new Conway(70);
+var game = new Game(70);
 
 var interval = setInterval(function () {
-  conway.show(conway.updateNeighbors(conway.updateStates()));
+  process.stdin.write("\033[2J");
+  // flow of methods
+  game.show(
+    game.updateNeighbors(
+      game.updateStates()));
   
-  
-}, 0);
+}, 50);

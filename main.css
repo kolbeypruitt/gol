@@ -1,0 +1,100 @@
+h1 {
+  text-align: center;
+}
+
+.container {
+  display: block;
+  margin: auto;
+  width: 100%;
+  margin: 5;
+  padding: 0;
+}
+
+#container {
+    border: 2px dashed #444;
+    height: 700px;
+
+    text-align: justify;
+    -ms-text-justify: distribute-all-lines;
+    text-justify: distribute-all-lines;
+
+    /* just for demo */
+    min-width: 612px;
+}
+
+.box1, .box2, .box3 {
+    width: auto;
+    height: 700px;
+    vertical-align: top;
+    display: inline-block;
+    *display: inline;
+    zoom: 1
+}
+
+.stretch {
+    width: 100%;
+    display: inline-block;
+    font-size: 0;
+    line-height: 0
+}
+
+.button {
+  width: 100px;
+  height: 40px;
+  background-color: orange; 
+  display: inline-block;
+  text-align: center;
+  font-size: 30px;
+  vertical-align:middle;
+  border-radius: 15px;
+}
+
+.button:hover {
+  cursor: pointer;
+}
+
+#grid {
+  display: block;
+  margin: auto;
+  width: 50vw;
+  margin: 5;
+  padding: 0;
+}
+
+.control-panel {
+  width: 200px;
+}
+
+.cell {
+  height: 5vw;
+  width: 5vw;
+  background: white;
+  display: inline-block;
+  text-align: center;
+  line-height: 5vw;
+  font-size: 2vw;
+  margin: -1px;
+  margin-top: -4px;
+  position: relative;
+  border: 1px solid black;
+}
+/*demo only*/
+
+.cell:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: inherit;
+  width: inherit;
+  transition: all 0.4s;
+}
+
+.cell:hover:before {
+  background: red;
+}
+
+
+/*#p1 {background-color:rgba(255,0,0,0.3);}
+#p2 {background-color:rgba(0,255,0,0.3);}
+#p3 {background-color:rgba(0,0,255,0.3);}*/
