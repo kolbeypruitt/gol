@@ -4,6 +4,7 @@ function Cell () {
 };
 
 function Game (size) {
+  document.getElementById("grid").setAttribute("style", "width: " + size + "vw");
   this.size = size;
   this.grid = this.generateGrid(size);
   this.directions = [ [-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1] ];
@@ -23,7 +24,9 @@ Game.prototype.generateGrid = function(size) {
 
 Game.prototype.show = function() {
 
-  var gridDiv = document.getElementById("grid")
+  var gridDiv = document.getElementById("grid");
+  while (gridDiv.hasChildNodes())
+  gridDiv.removeChild(gridDiv.lastChild);
 
   for (var i = 0; i < this.size; i++) {
     var row = this.grid[i];
@@ -42,10 +45,10 @@ Game.prototype.show = function() {
 
       if (cell.alive) {
         // rowString += "X|";
-        cellDiv.innerHTML = "alive";
+        cellDiv.setAttribute("alive", "true");
       } else {
         // rowString += " |";
-        cellDiv.innerHTML = "dead";
+        cellDiv.setAttribute("alive", "false");
       }
       rowDiv.appendChild(cellDiv);
     }
@@ -122,13 +125,13 @@ Game.prototype.updateStates = function() {
 
 
 
-var game = new Game(10);
 
 // var interval = setInterval(function () {
+  var game = new Game(50);
   // process.stdin.write("\033[2J");
   // flow of methods
-  game.show(
-    game.updateNeighbors(
-      game.updateStates()));
+  game.show();
+  game.updateNeighbors();
+  game.updateStates();
   
 // }, 1000);
