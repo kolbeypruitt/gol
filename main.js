@@ -22,20 +22,38 @@ Game.prototype.generateGrid = function(size) {
 };
 
 Game.prototype.show = function() {
+
+  var gridDiv = document.getElementById("grid")
+
   for (var i = 0; i < this.size; i++) {
     var row = this.grid[i];
-    var rowString = [];
+    // var rowString = [];
+    var rowDiv = document.createElement("rowDiv");
+    rowDiv.setAttribute("id", "row-" + i);
+    rowDiv.setAttribute("class", "row");
+    gridDiv.appendChild(rowDiv);
+
     for (var j = 0; j < this.size; j++) {
       var cell = row[j];
+
+      var cellDiv = document.createElement("cellDiv");
+        cellDiv.setAttribute("id", "cell-(" + i + "," + j + ")");
+        cellDiv.setAttribute("class", "cell");
+
       if (cell.alive) {
-        rowString += "X|";
+        // rowString += "X|";
+        cellDiv.innerHTML = "alive";
       } else {
-        rowString += " |";
+        // rowString += " |";
+        cellDiv.innerHTML = "dead";
       }
+      rowDiv.appendChild(cellDiv);
     }
-    console.log(rowString);
+    // console.log(rowString);
   }
 };
+
+
 
 // if less than 2 neighbors, cell dies -- isUnderPopulated(x,y)
 // if more than 3 neighbors, cell dies
@@ -104,13 +122,13 @@ Game.prototype.updateStates = function() {
 
 
 
-var game = new Game(70);
+var game = new Game(10);
 
-var interval = setInterval(function () {
-  process.stdin.write("\033[2J");
+// var interval = setInterval(function () {
+  // process.stdin.write("\033[2J");
   // flow of methods
   game.show(
     game.updateNeighbors(
       game.updateStates()));
   
-}, 50);
+// }, 1000);
