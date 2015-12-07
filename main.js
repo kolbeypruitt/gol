@@ -4,7 +4,8 @@ function Cell () {
 };
 
 function Game (size) {
-  document.getElementById("grid").setAttribute("style", "width: " + size + "vw");
+  // document.getElementById("grid").setAttribute("style", "width: " + size + "vw");
+  this.running = false;
   this.size = size;
   this.grid = this.generateGrid(size);
   this.directions = [ [-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1] ];
@@ -128,21 +129,30 @@ Game.prototype.updateStates = function() {
   }
 };
 
-var game = new Game(50);
+Game.prototype.start = function() {
+  this.running = true;
+  console.log('game running');
+};
 
-var interval = setInterval(function () {
-  // process.stdin.write("\033[2J");
-  // flow of methods
-  game.render();
-  game.updateNeighbors();
-  game.updateStates();
-  
-}, 5000);
-
+Game.prototype.pause = function() {
+  this.running = false;
+  console.log('game paused');
+};
 
 
-// I need to add a Game.tick() fn that invokes updates and render
-// viewModel.tick = function () {
-//   grid.step();
-//   viewModel.update();
-// };
+
+window.onload = function() {
+
+  game = new Game(10);
+
+  var interval = setInterval(function () {
+    // process.stdin.write("\033[2J");
+    if(game.running) {
+      game.render();
+      game.updateNeighbors();
+      game.updateStates();
+    }
+    
+  }, 500);
+
+};
