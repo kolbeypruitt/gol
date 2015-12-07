@@ -139,11 +139,15 @@ Game.prototype.pause = function() {
   console.log('game paused');
 };
 
-
-
+Game.prototype.clear = function() {
+  game = new Game(10);
+  game.render();
+};
 window.onload = function() {
 
   game = new Game(10);
+
+  game.render();
 
   var interval = setInterval(function () {
     // process.stdin.write("\033[2J");
@@ -152,7 +156,7 @@ window.onload = function() {
       game.updateNeighbors();
       game.updateStates();
     }
-    
+
   }, 500);
 
 };
