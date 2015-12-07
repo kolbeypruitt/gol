@@ -1,5 +1,5 @@
 function Cell () {
-  this.alive = Math.random() < 0.70;
+  this.alive = false;
   this.neighbors = 0; // live neighbors
 };
 
@@ -49,6 +49,7 @@ Game.prototype.render = function() {
       } else {
         // rowString += " |";
         cellDiv.setAttribute("alive", "false");
+        cellDiv.setAttribute("style", "background-color: blue;")
       }
       rowDiv.appendChild(cellDiv);
     }
@@ -125,12 +126,12 @@ Game.prototype.updateStates = function() {
 
 
 
-// var interval = setInterval(function () {
-  var game = new Game(10);
+var interval = setInterval(function () {
+  var game = new Game(50);
   // process.stdin.write("\033[2J");
   // flow of methods
   game.render();
   game.updateNeighbors();
   game.updateStates();
   
-// }, 1000);
+}, 2000);
