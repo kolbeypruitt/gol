@@ -22,7 +22,7 @@ Game.prototype.generateGrid = function(size) {
   return grid;
 };
 
-Game.prototype.show = function() {
+Game.prototype.render = function() {
 
   var gridDiv = document.getElementById("grid");
   while (gridDiv.hasChildNodes())
@@ -125,12 +125,11 @@ Game.prototype.updateStates = function() {
 
 
 
-
 // var interval = setInterval(function () {
-  var game = new Game(50);
+  var game = new Game(10);
   // process.stdin.write("\033[2J");
   // flow of methods
-  game.show();
+  game.render();
   game.updateNeighbors();
   game.updateStates();
   

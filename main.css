@@ -22,22 +22,6 @@ h1 {
     min-width: 612px;
 }
 
-.box1, .box2, .box3 {
-    width: auto;
-    height: 700px;
-    vertical-align: top;
-    display: inline-block;
-    *display: inline;
-    zoom: 1
-}
-
-.stretch {
-    width: 100%;
-    display: inline-block;
-    font-size: 0;
-    line-height: 0
-}
-
 .button {
   width: 100px;
   height: 40px;
@@ -74,6 +58,20 @@ h1 {
   font-size: 2vw;
   margin: -1px;
   margin-top: -1vw;
+  position: relative;
+  border: 1px solid black;
+}
+
+
+
+.row {
+  height: 1vw;
+  width: 1vw;
+  background: white;
+  display: inline-block;
+  text-align: center;
+  line-height: 1vw;
+  margin: -1px;
   position: relative;
   border: 1px solid black;
 }
