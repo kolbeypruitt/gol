@@ -46,35 +46,39 @@ Game.prototype.render = function() {
       if (cell.alive) {
         // rowString += "X|";
         cellDiv.setAttribute("alive", "true");
+        cellDiv.setAttribute("style", "background-color: red;")
       } else {
         // rowString += " |";
-        cellDiv.setAttribute("alive", "false");
-        cellDiv.setAttribute("style", "background-color: blue;")
+        // cellDiv.setAttribute("alive", "false");
+        // cellDiv.setAttribute("style", "background-color: blue;")
       }
       rowDiv.appendChild(cellDiv);
+
+      cellDiv.addEventListener("click", function(){
+        this.alive = true;
+        this.setAttribute("style", "background-color:red");
+      });
     }
     // console.log(rowString);
   }
 };
 
-
-
-// if less than 2 neighbors, cell dies -- isUnderPopulated(x,y)
+// if less than 2 neighbors, cell dies -- twoNeighbors(x,y)
 // if more than 3 neighbors, cell dies
 // if dead, and exactly 3 neighbors, cell is reborn
 // update neighbors for cells**
 
-Game.prototype.isUnderPopulated = function(r,c) {
+Game.prototype.twoNeighbors = function(r,c) {
   var cell = this.grid[r][c];
   return cell.neighbors < 2;
 };
 
-Game.prototype.isOverPopulated = function(r,c) {
+Game.prototype.moreThanThreeNeighbors = function(r,c) {
   var cell = this.grid[r][c];
   return cell.neighbors > 3;
 };
 
-Game.prototype.isResurrectable = function(r,c) {
+Game.prototype.threeNeighbors = function(r,c) {
   var cell = this.grid[r][c];
   return !cell.alive && cell.neighbors === 3;
 };
@@ -85,7 +89,7 @@ Game.prototype.isInBounds = function(r,c) {
 
 Game.prototype.updateNeighborsForCell = function(r,c) {
   var cell = this.grid[r][c];
-  var neighbors = 0;
+  cell.neighbors = 0;
   for (var i = 0; i < this.directions.length; i++) {
     var direction = this.directions[i];
     var dr = direction[0];
@@ -109,9 +113,9 @@ Game.prototype.updateNeighbors = function() {
 
 Game.prototype.updateStateForCell = function(r,c) {
   var cell = this.grid[r][c];
-  if (this.isUnderPopulated(r,c) || this.isOverPopulated(r,c)) {
+  if (this.twoNeighbors(r,c) || this.moreThanThreeNeighbors(r,c)) {
     cell.alive = false;
-  } else if (this.isResurrectable(r,c)) {
+  } else if (this.threeNeighbors(r,c)) {
     cell.alive = true;
   }
 };
@@ -119,19 +123,26 @@ Game.prototype.updateStateForCell = function(r,c) {
 Game.prototype.updateStates = function() {
   for (var i = 0; i < this.size; i++) {
     for (var j = 0; j < this.size; j++) {
-      this.updateNeighborsForCell(i,j)
+      this.updateStateForCell(i,j)
     }
   }
 };
 
-
+var game = new Game(50);
 
 var interval = setInterval(function () {
-  var game = new Game(50);
   // process.stdin.write("\033[2J");
   // flow of methods
   game.render();
   game.updateNeighbors();
   game.updateStates();
   
-}, 2000);
+}, 5000);
+
+
+
+// I need to add a Game.tick() fn that invokes updates and render
+// viewModel.tick = function () {
+//   grid.step();
+//   viewModel.update();
+// };
