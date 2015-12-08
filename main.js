@@ -154,6 +154,7 @@ Game.prototype.clear = function() {
   game = new Game(80);
   game.render();
 };
+
 window.onload = function() {
 
   game = new Game(80);
@@ -161,13 +162,12 @@ window.onload = function() {
   game.render();
 
   var interval = setInterval(function () {
-    // process.stdin.write("\033[2J");
+    game.render();
     if(game.running) {
-      game.render();
       game.updateNeighbors();
       game.updateStates();
     }
 
-  }, 1000);
+  }, 0);
 
 };
