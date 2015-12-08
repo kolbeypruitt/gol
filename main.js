@@ -3,6 +3,14 @@ function Cell () {
   this.neighbors = 0;
 };
 
+Cell.prototype.toggleAlive = function() {
+  if (this.alive===true) {
+    this.alive=false;
+  } else {
+    this.alive=true;
+  } 
+};
+
 function Game (size) {
   this.running = false;
   this.size = size;
@@ -42,7 +50,7 @@ Game.prototype.getCoord = function(cellDivId) {
   return coords;
 };
 
-Game.prototype.render = function() {
+Game.prototype.initializeDisplay = function() {
 
   var gridDiv = document.getElementById("grid");
   while (gridDiv.hasChildNodes())
@@ -50,7 +58,7 @@ Game.prototype.render = function() {
 
   for (var i = 0; i < this.size; i++) {
     var row = this.grid[i];
-    var rowDiv = document.createElement("rowDiv");
+    var rowDiv = document.createElement("div");
     rowDiv.setAttribute("id", "row-" + i);
     rowDiv.setAttribute("class", "row");
     gridDiv.appendChild(rowDiv);
@@ -58,7 +66,7 @@ Game.prototype.render = function() {
     for (var j = 0; j < this.size; j++) {
       var cell = row[j];
 
-      var cellDiv = document.createElement("cellDiv");
+      var cellDiv = document.createElement("div");
         cellDiv.setAttribute("id", i + "," + j);
         cellDiv.setAttribute("class", "cell");
 
@@ -71,9 +79,31 @@ Game.prototype.render = function() {
       cellDiv.addEventListener("click", function(){
         var coords = game.getCoord(this.getAttribute('id'));
         var cell = game.grid[coords[0]][coords[1]];
-        cell.alive = true;
-        this.setAttribute("style", "background-color:red");
+        cell.toggleAlive();
+        if (cell.alive) {
+          this.setAttribute("style", "background-color:red");
+        } else {
+          this.setAttribute("style", "background-color:white");
+        }
+        
       });
+    }
+  }
+};
+
+Game.prototype.reRender = function() {
+  for (var i = 0; i < this.size; i++) {
+    var row = this.grid[i];
+
+    for (var j = 0; j < this.size; j++) {
+      var cell = row[j];
+      var cellDiv = document.getElementById(i + "," + j);
+      if (cell.alive) {
+        cellDiv.setAttribute("alive", "true");
+        cellDiv.setAttribute("style", "background-color: red;")
+      } else {
+        cellDiv.setAttribute("style", "background-color: white;")
+      }
     }
   }
 };
@@ -155,25 +185,23 @@ Game.prototype.pause = function() {
 
 Game.prototype.clear = function() {
   game = new Game(80);
-  game.render();
+  game.initializeDisplay();
 };
 
 window.onload = function() {
 
   game = new Game(80);
 
-  game.render();
+  game.initializeDisplay();
 
   var interval = setInterval(function () {
     
     if(game.running) {
-      
+      game.reRender();
       game.updateNeighbors();
       game.updateAllCells();
-      game.render();
-
     }
 
-  }, 50);
+  }, 0);
 
 };
