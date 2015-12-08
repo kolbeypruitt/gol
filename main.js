@@ -23,6 +23,15 @@ Game.prototype.generateGrid = function(size) {
   return grid;
 };
 
+Game.prototype.getCoord = function(cellDivId) {
+  var integers = cellDivId.match(/[0-9 , \.]+/g);
+
+  var coords = integers[0].split(',').map(function(item) {
+    return parseInt(item, 10);
+  });
+  return coords;
+};
+
 Game.prototype.render = function() {
 
   var gridDiv = document.getElementById("grid");
@@ -41,7 +50,7 @@ Game.prototype.render = function() {
       var cell = row[j];
 
       var cellDiv = document.createElement("cellDiv");
-        cellDiv.setAttribute("id", "cell-(" + i + "," + j + ")");
+        cellDiv.setAttribute("id", i + "," + j);
         cellDiv.setAttribute("class", "cell");
 
       if (cell.alive) {
@@ -56,7 +65,9 @@ Game.prototype.render = function() {
       rowDiv.appendChild(cellDiv);
 
       cellDiv.addEventListener("click", function(){
-        this.alive = true;
+        var coords = game.getCoord(this.getAttribute('id'));
+        var cell = game.grid[coords[0]][coords[1]];
+        cell.alive = true;
         this.setAttribute("style", "background-color:red");
       });
     }
@@ -140,12 +151,12 @@ Game.prototype.pause = function() {
 };
 
 Game.prototype.clear = function() {
-  game = new Game(10);
+  game = new Game(80);
   game.render();
 };
 window.onload = function() {
 
-  game = new Game(10);
+  game = new Game(80);
 
   game.render();
 
@@ -157,6 +168,6 @@ window.onload = function() {
       game.updateStates();
     }
 
-  }, 500);
+  }, 1000);
 
 };
