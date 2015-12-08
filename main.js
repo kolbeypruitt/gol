@@ -1,14 +1,27 @@
 function Cell () {
+  this.changed = false;
   this.alive = false;
   this.neighbors = 0;
 };
 
-Cell.prototype.toggleAlive = function() {
-  if (this.alive===true) {
-    this.alive=false;
-  } else {
-    this.alive=true;
-  } 
+Cell.prototype.toggleAlive = function(override) {
+  if (override === undefined) {
+    if (this.alive===true) {
+        this.alive = false;
+        this.changed = true;
+      } else {
+        this.alive = true;
+        this.changed = true;
+      }
+    } else {
+    if (this.alive!==override) {
+      this.changed = true;
+      this.alive = override;
+    } else if (this.alive==override) {
+      this.changed = false;
+      this.alive = override;
+    }  
+  }
 };
 
 function Game (size) {
@@ -16,7 +29,6 @@ function Game (size) {
   this.size = size;
   this.grid = this.generateGrid(size);
   this.directions = [ [-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1] ];
-
 };
 
 Game.prototype.generateGrid = function(size) {
@@ -73,6 +85,7 @@ Game.prototype.initializeDisplay = function() {
       if (cell.alive) {
         cellDiv.setAttribute("alive", "true");
         cellDiv.setAttribute("style", "background-color: red;")
+        // I'm setting attributes everytime regardless of if it is already correct
       }
       rowDiv.appendChild(cellDiv);
 
@@ -97,13 +110,15 @@ Game.prototype.reRender = function() {
 
     for (var j = 0; j < this.size; j++) {
       var cell = row[j];
-      var cellDiv = document.getElementById(i + "," + j);
-      if (cell.alive) {
-        cellDiv.setAttribute("alive", "true");
-        cellDiv.setAttribute("style", "background-color: red;")
-      } else {
-        cellDiv.setAttribute("style", "background-color: white;")
+      if (cell.changed) {
+        var cellDiv = document.getElementById(i + "," + j);
+        if (cell.alive) {
+          cellDiv.setAttribute("style", "background-color: red;")
+        } else {
+          cellDiv.setAttribute("style", "background-color: white;")
+        }
       }
+      cell.changed = false;
     }
   }
 };
@@ -159,9 +174,11 @@ Game.prototype.updateNeighbors = function() {
 Game.prototype.updateCell = function(r,c) {
   var cell = this.grid[r][c];
   if (this.twoNeighbors(r,c) || this.moreThanThreeNeighbors(r,c)) {
-    cell.alive = false;
+    // cell.alive = false;
+    cell.toggleAlive(false);
   } else if (this.threeNeighbors(r,c)) {
-    cell.alive = true;
+    // cell.alive = true;
+    cell.toggleAlive(true);
   }
 };
 
@@ -175,12 +192,11 @@ Game.prototype.updateAllCells = function() {
 
 Game.prototype.start = function() {
   this.running = true;
-  console.log('game running');
 };
 
 Game.prototype.pause = function() {
   this.running = false;
-  console.log('game paused');
+  clearInterval(loop);
 };
 
 Game.prototype.clear = function() {
@@ -188,26 +204,29 @@ Game.prototype.clear = function() {
   game.initializeDisplay();
 };
 
-// Game.prototype.changeSpeed = function() {
-//   game.speed = document.getElementById("speed").value;
-// };
+Game.prototype.startLoop = function() {
+  var speed = parseInt(document.getElementById("speed").value);
+
+  loop = setInterval(function () {
+    if(game.running) {
+      game.reRender();
+      game.updateNeighbors();
+      game.updateAllCells();
+    }
+  }, speed)
+  
+};
+
+Game.prototype.changeSpeed = function() {
+  clearInterval(loop);
+  this.startLoop();
+};
 
 window.onload = function() {
 
   game = new Game(80);
 
   game.initializeDisplay();
-  // game.changeSpeed();
-
-
-  var interval = setInterval(function () {
-    if(game.running) {
-      game.reRender();
-      game.updateNeighbors();
-      game.updateAllCells();
-    }
-
-  }, 250);
-
+  
+  game.startLoop();
 };
-
