@@ -188,20 +188,26 @@ Game.prototype.clear = function() {
   game.initializeDisplay();
 };
 
+// Game.prototype.changeSpeed = function() {
+//   game.speed = document.getElementById("speed").value;
+// };
+
 window.onload = function() {
 
   game = new Game(80);
 
   game.initializeDisplay();
+  // game.changeSpeed();
+
 
   var interval = setInterval(function () {
-    
     if(game.running) {
       game.reRender();
       game.updateNeighbors();
       game.updateAllCells();
     }
 
-  }, 0);
+  }, 250);
 
 };
+
