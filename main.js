@@ -32,8 +32,26 @@ Cell.prototype.buildDna = function(r,g,b) {
   this.color +=b;
 };
 
-Cell.prototype.readDna = function() {
-  // body...
+// Cell.prototype.readDna = function() {
+//   // body...
+// };
+
+Game.prototype.getNeighborsDna = function(cell, neighborArr) {
+  if (neighborArr.length===3) {
+    for (var i = 0; i < neighborArr.length; i++) {
+      var neighborColor = neighborArr[i].color;
+      if (i===0) {
+        var red = neighborArr[i].color[1] + neighborArr[i].color[2];
+      }
+      if (i===1) {
+        var green = neighborArr[i].color[3] + neighborArr[i].color[4];
+      }
+      if (i===2) {
+        var blue = neighborArr[i].color[5] + neighborArr[i].color[6];
+      }
+    }
+    cell.buildDna(red,green,blue);
+  }
 };
 
 function Game (size) {
@@ -162,7 +180,7 @@ Game.prototype.updateNeighborsForCell = function(r,c) {
       var neighbor = this.grid[r + dr][c + dc];
       if (neighbor.alive) {
         cell.neighbors++;
-        // this is an experiment
+        // this is building the array for dna inheritance
         threeLiveNeighbors.push(neighbor);
         // - - - - -  - - - -  -
       }
@@ -170,40 +188,6 @@ Game.prototype.updateNeighborsForCell = function(r,c) {
   }
   game.getNeighborsDna(cell, threeLiveNeighbors);
 };
-
-Game.prototype.getNeighborsDna = function(cell, neighborArr) {
-  if (neighborArr.length===3) {
-    for (var i = 0; i < neighborArr.length; i++) {
-      var neighborColor = neighborArr[i].color;
-      if (i===0) {
-        var red = neighborArr[i].color[1] + neighborArr[i].color[2];
-      }
-      if (i===1) {
-        var green = neighborArr[i].color[3] + neighborArr[i].color[4];
-      }
-      if (i===2) {
-        var blue = neighborArr[i].color[5] + neighborArr[i].color[6];
-      }
-    }
-    cell.buildDna(red,green,blue);
-  }
-};
-  // if (threeLiveNeighbors.length===3) {
-  //   for (var k = 0; k < threeLiveNeighbors.length; k++) {
-  //     var neighborColor = threeLiveNeighbors[k].color;
-  //     if (k===0) {
-  //       var red = threeLiveNeighbors[k].color[1] + threeLiveNeighbors[k].color[2];
-  //     }
-  //     if (k===1) {
-  //       var green = threeLiveNeighbors[k].color[3] + threeLiveNeighbors[k].color[4];
-  //     }
-  //     if (k===2) {
-  //       var blue = threeLiveNeighbors[k].color[5] + threeLiveNeighbors[k].color[6];
-  //     }
-  //     cell.buildDna(red,green,blue);
-  //   }
-  // }
-
 
 Game.prototype.updateNeighbors = function() {
   for (var i = 0; i < this.size; i++) {
@@ -216,11 +200,9 @@ Game.prototype.updateNeighbors = function() {
 Game.prototype.updateCell = function(r,c) {
   var cell = this.grid[r][c];
   if (this.twoNeighbors(r,c) || this.moreThanThreeNeighbors(r,c)) {
-    // cell.alive = false;
-    cell.toggleAlive(false);
+    cell.toggleAlive(false); // passing a parameter overrides the toggle
   } else if (this.threeNeighbors(r,c)) {
-    // cell.alive = true;
-    cell.toggleAlive(true);
+    cell.toggleAlive(true); // passing a parameter overrides the toggle
   }
 };
 
