@@ -21,6 +21,9 @@ label {
   padding: 0;
 }
 
+.picker {
+}
+
 #container {
   height: 500px;
   text-align: justify;

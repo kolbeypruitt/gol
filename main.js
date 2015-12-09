@@ -2,11 +2,11 @@ function Cell () {
   this.changed = false;
   this.alive = false;
   this.neighbors = 0;
-  this.color = "rgba(255,0,0,0.9)"
+  this.color = "#ffffff"
 };
 
 Cell.prototype.toggleAlive = function(override) {
-  if (override === undefined) {
+  if (override===undefined) {
     if (this.alive===true) {
         this.alive = false;
         this.changed = true;
@@ -25,11 +25,22 @@ Cell.prototype.toggleAlive = function(override) {
   }
 };
 
+Cell.prototype.buildDna = function(r,g,b) {
+  this.color = '#';
+  this.color +=r;
+  this.color +=g;
+  this.color +=b;
+};
+
+Cell.prototype.readDna = function() {
+  // body...
+};
+
 function Game (size) {
   this.running = false;
   this.size = size;
   this.grid = this.generateGrid(size);
-  this.directions = [ [-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1] ];
+  this.directions = [ [-1, -1], [-1, 0], [-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1] ];
 };
 
 Game.prototype.generateGrid = function(size) {
@@ -74,15 +85,16 @@ Game.prototype.initializeDisplay = function() {
         cellDiv.setAttribute("class", "cell");
 
       if (cell.alive) {
-        cellDiv.setAttribute("alive", "true");
         cellDiv.setAttribute("style", "background-color:" + cell.color)
         // I'm setting attributes everytime regardless of if it is already correct
       }
       rowDiv.appendChild(cellDiv);
 
       cellDiv.addEventListener("click", function(){
+        var pickColor = document.getElementById("picker").value;
         var coords = game.getCoord(this.getAttribute('id'));
         var cell = game.grid[coords[0]][coords[1]];
+        cell.color = pickColor;
         cell.toggleAlive();
         if (cell.alive) {
           this.setAttribute("style", "background-color:" + cell.color);
@@ -140,6 +152,7 @@ Game.prototype.isInBounds = function(r,c) {
 
 Game.prototype.updateNeighborsForCell = function(r,c) {
   var cell = this.grid[r][c];
+  var threeLiveNeighbors = [];
   cell.neighbors = 0;
   for (var i = 0; i < this.directions.length; i++) {
     var direction = this.directions[i];
@@ -149,10 +162,48 @@ Game.prototype.updateNeighborsForCell = function(r,c) {
       var neighbor = this.grid[r + dr][c + dc];
       if (neighbor.alive) {
         cell.neighbors++;
+        // this is an experiment
+        threeLiveNeighbors.push(neighbor);
+        // - - - - -  - - - -  -
       }
     }
   }
+  game.getNeighborsDna(cell, threeLiveNeighbors);
 };
+
+Game.prototype.getNeighborsDna = function(cell, neighborArr) {
+  if (neighborArr.length===3) {
+    for (var i = 0; i < neighborArr.length; i++) {
+      var neighborColor = neighborArr[i].color;
+      if (i===0) {
+        var red = neighborArr[i].color[1] + neighborArr[i].color[2];
+      }
+      if (i===1) {
+        var green = neighborArr[i].color[3] + neighborArr[i].color[4];
+      }
+      if (i===2) {
+        var blue = neighborArr[i].color[5] + neighborArr[i].color[6];
+      }
+    }
+    cell.buildDna(red,green,blue);
+  }
+};
+  // if (threeLiveNeighbors.length===3) {
+  //   for (var k = 0; k < threeLiveNeighbors.length; k++) {
+  //     var neighborColor = threeLiveNeighbors[k].color;
+  //     if (k===0) {
+  //       var red = threeLiveNeighbors[k].color[1] + threeLiveNeighbors[k].color[2];
+  //     }
+  //     if (k===1) {
+  //       var green = threeLiveNeighbors[k].color[3] + threeLiveNeighbors[k].color[4];
+  //     }
+  //     if (k===2) {
+  //       var blue = threeLiveNeighbors[k].color[5] + threeLiveNeighbors[k].color[6];
+  //     }
+  //     cell.buildDna(red,green,blue);
+  //   }
+  // }
+
 
 Game.prototype.updateNeighbors = function() {
   for (var i = 0; i < this.size; i++) {
@@ -183,6 +234,7 @@ Game.prototype.updateAllCells = function() {
 
 Game.prototype.start = function() {
   this.running = true;
+  game.startLoop();
 };
 
 Game.prototype.pause = function() {
