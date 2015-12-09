@@ -2,13 +2,15 @@ function Cell () {
   this.changed = false;
   this.alive = false;
   this.neighbors = 0;
-  this.color = "#ffffff"
+  this.color = "#ffffff";
+  this.opacity = 0.1;
 };
 
 Cell.prototype.toggleAlive = function(override) {
   if (override===undefined) {
     if (this.alive===true) {
         this.alive = false;
+        this.opacity = 0.1;
         this.changed = true;
       } else {
         this.alive = true;
@@ -115,7 +117,7 @@ Game.prototype.initializeDisplay = function() {
         cell.color = pickColor;
         cell.toggleAlive();
         if (cell.alive) {
-          this.setAttribute("style", "background-color:" + cell.color);
+          this.setAttribute("style", "background-color:" + cell.color)
         } else {
           this.setAttribute("style", "background-color:white");
         }
@@ -126,15 +128,17 @@ Game.prototype.initializeDisplay = function() {
 };
 
 Game.prototype.reRender = function() {
+
   for (var i = 0; i < this.size; i++) {
     var row = this.grid[i];
 
     for (var j = 0; j < this.size; j++) {
       var cell = row[j];
+      cell.opacity = cell.opacity + 0.1;
       if (cell.changed) {
         var cellDiv = document.getElementById(i + "," + j);
         if (cell.alive) {
-          cellDiv.setAttribute("style", "background-color:" + cell.color)
+          cellDiv.setAttribute("style", "background-color:" + cell.color + "; opacity:" + cell.opacity);
         } else {
           cellDiv.setAttribute("style", "background-color: white;")
         }
