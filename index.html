@@ -7,9 +7,9 @@
 </head>
 <body>
   <h1>Conway's Game Of Life</h1>
+  <input type="color" id="picker" onchange="game.colorPick()">
   <div class="container" id="container">
     <div class="controls">
-      <input type="color" id="picker" onchange="game.colorPick()">
       <div class="button" onclick="game.start();">Start</div>
       <div class="button" onclick="game.pause();">Pause</div>
       <div class="button" onclick="game.clear();">Clear</div>
