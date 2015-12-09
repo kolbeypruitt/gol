@@ -138,8 +138,9 @@ Game.prototype.reRender = function() {
         } else {
           cellDiv.setAttribute("style", "background-color: white;")
         }
+      } else {
+        cell.changed = false;
       }
-      cell.changed = false;
     }
   }
 };
@@ -244,8 +245,9 @@ Game.prototype.startLoop = function() {
 };
 
 Game.prototype.changeSpeed = function() {
+  var speed = parseInt(document.getElementById("speed").value);
   clearInterval(loop);
-  this.startLoop();
+  game.startLoop();
 };
 
 window.onload = function() {
