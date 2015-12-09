@@ -1,5 +1,16 @@
 h1 {
   text-align: center;
+  color: white;
+}
+
+body {
+  background-image: url("http://7-themes.com/data_images/out/1/6771691-awesome-black-backgrounds.jpg");
+  background-size: 1200px 600px;
+  background-repeat: no-repeat;
+}
+
+label {
+  color: white;
 }
 
 .container {

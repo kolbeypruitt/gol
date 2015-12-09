@@ -2,6 +2,7 @@ function Cell () {
   this.changed = false;
   this.alive = false;
   this.neighbors = 0;
+  this.color = "rgba(255,0,0,0.9)"
 };
 
 Cell.prototype.toggleAlive = function(override) {
@@ -43,16 +44,6 @@ Game.prototype.generateGrid = function(size) {
   return grid;
 };
 
-Game.prototype.mapGrid = function(size) {
-  var row = [];
-  for (var i = 0; i < size; i++) {
-    row.push(new Cell());
-  }
-  var grid = row.map(function(cell) {
-  return cell;
-})
-};
-
 Game.prototype.getCoord = function(cellDivId) {
   var integers = cellDivId.match(/[0-9 , \.]+/g);
 
@@ -84,7 +75,7 @@ Game.prototype.initializeDisplay = function() {
 
       if (cell.alive) {
         cellDiv.setAttribute("alive", "true");
-        cellDiv.setAttribute("style", "background-color: red;")
+        cellDiv.setAttribute("style", "background-color:" + cell.color)
         // I'm setting attributes everytime regardless of if it is already correct
       }
       rowDiv.appendChild(cellDiv);
@@ -94,7 +85,7 @@ Game.prototype.initializeDisplay = function() {
         var cell = game.grid[coords[0]][coords[1]];
         cell.toggleAlive();
         if (cell.alive) {
-          this.setAttribute("style", "background-color:red");
+          this.setAttribute("style", "background-color:" + cell.color);
         } else {
           this.setAttribute("style", "background-color:white");
         }
@@ -113,7 +104,7 @@ Game.prototype.reRender = function() {
       if (cell.changed) {
         var cellDiv = document.getElementById(i + "," + j);
         if (cell.alive) {
-          cellDiv.setAttribute("style", "background-color: red;")
+          cellDiv.setAttribute("style", "background-color:" + cell.color)
         } else {
           cellDiv.setAttribute("style", "background-color: white;")
         }
@@ -200,8 +191,9 @@ Game.prototype.pause = function() {
 };
 
 Game.prototype.clear = function() {
-  game = new Game(80);
+  game = new Game(50);
   game.initializeDisplay();
+  game.startLoop();
 };
 
 Game.prototype.startLoop = function() {
@@ -224,7 +216,7 @@ Game.prototype.changeSpeed = function() {
 
 window.onload = function() {
 
-  game = new Game(80);
+  game = new Game(50);
 
   game.initializeDisplay();
   
