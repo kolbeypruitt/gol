@@ -8,20 +8,16 @@
 <body>
   <h1>Conway's Game Of Life</h1>
   <div class="container" id="container">
-      <div class="controls">
-      <h1>controls</h1>
-      <input type="color" id="picker">
+    <div class="controls">
+      <input type="color" id="picker" onchange="game.colorPick()">
       <div class="button" onclick="game.start();">Start</div>
       <div class="button" onclick="game.pause();">Pause</div>
       <div class="button" onclick="game.clear();">Clear</div>
-      <div>
-        <label>speed 0 <input id="speed" type="range" min="0" max="4000" value="2000" onchange="game.changeSpeed()" /> 180</label>
-      </div>
+      <label>speed 0 <input id="speed" type="range" min="0" max="4000" onchange="game.changeSpeed()"/> 180</label>
     </div>
-      <div id="grid">
-      <!-- this is where all the cells will go -->
-      </div>
-    <span class="stretch"></span>
+    <div id="grid">
+    <!-- this is where all the cells will go -->
+    </div>
   </div>
   <script type="text/javascript" src="main.js"></script>
 </body>
