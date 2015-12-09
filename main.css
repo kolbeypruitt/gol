@@ -4,8 +4,8 @@ h1 {
 }
 
 body {
-  background-image: url("http://7-themes.com/data_images/out/1/6771691-awesome-black-backgrounds.jpg");
-  background-size: 1200px 600px;
+  background-image: url("http://wallpapercave.com/wp/afyhOaU.jpg");
+  background-size: 1200px 800px;
   background-repeat: no-repeat;
 }
 
@@ -31,15 +31,15 @@ label {
 }
 
 .button {
-  width: 65px;
-  height: 30px;
-  background-color: orange; 
+  background-color: black;l 
   display: inline-block;
   text-align: center;
   font-size: 24px;
   vertical-align:middle;
   border-radius: 15px;
-  margin: 10px 0px;
+  margin: 10px 10px;
+  color: white;
+
 }
 
 .button:hover {
@@ -54,10 +54,12 @@ label {
 }
 
 .controls {
+  border-radius: 15px;
+  background-color: grey;
+  opacity: 0.8;
   width: 50%;
-  margin: 0 auto;
+  margin: 10px auto;
   display: block;
-  padding: 0;
 }
 
 .cell {
