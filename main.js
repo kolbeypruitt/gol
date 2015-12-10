@@ -261,6 +261,15 @@ Game.prototype.changeSpeed = function() {
   game.startLoop();
 };
 
+Game.prototype.watcher = function () {
+  watcherLoop = setInterval(function () {
+    var color_input = document.getElementById('color_input');
+    var pickerDiv = document.getElementById('pickerDiv');
+    pickerDiv.setAttribute("style", "visibility:visible; background-color:" + color_input.value);
+  }, 250)
+  
+};
+
 function initiateGridSize() {
   var height = document.getElementById("height").value;
   var width = document.getElementById("width").value;
@@ -283,4 +292,6 @@ function initiateGridSize() {
   game.initializeDisplay();
   
   game.startLoop();
+
+  game.watcher();
 };

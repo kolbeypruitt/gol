@@ -16,11 +16,8 @@ label {
 }
 
 #color_input {
-  background-color: black;
-  width: 80%;
-  border: none;
-  display: inline-block;
-  margin-bottom: 1px;
+  width: 1px;
+  height: 1px;
   visibility: hidden;
 }
 
