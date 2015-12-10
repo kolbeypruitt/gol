@@ -104,45 +104,26 @@ section.border button.active {
 }
 
 #grid {
-  width: 80%;
-  height: 80%;
-  margin: 0 auto;
-  display: block;
-  padding: 0;
-  /*background: white;*/
-}
-
-.cell {
-  height: 10px;
-  width: 10px;
-  /*opacity: 0.1;*/
-  /*background: white;*/
-  /*display: inline-block;*/
-  /*margin: -1px;*/
-  border: 1px solid black;
-}
-
-
-
-.row {
-  height: 1vw;
-  width: 1vw;
+  width: 567.7px;
+  height: 567.7px;
+  border: 3px solid grey;
   background: white;
-  display: inline-block;
-  text-align: center;
-  line-height: 1vw;
-  margin: -1px;
-  position: relative;
-  border: 1px solid black;
+  margin: auto;
+  visibility: hidden;
 }
-/*demo only*/
 
-.cell:before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: inherit;
-  width: inherit;
-  transition: all 0.3s;
+div.row:after {
+  content: ".";
+  height: 0;
+  visibility: hidden;
+  display: block;
+  clear: both;
+}
+
+div.row div {
+  background-color: transparent;
+  border: 1px solid black;
+  float: left;
+  width: 10px;
+  height: 10px;
 }

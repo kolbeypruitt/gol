@@ -89,16 +89,16 @@ Game.prototype.initializeDisplay = function() {
   for (var i = 0; i < this.size; i++) {
     var row = this.grid[i];
     var rowDiv = document.createElement("div");
-    rowDiv.setAttribute("id", "row-" + i);
     rowDiv.setAttribute("class", "row");
+    rowDiv.setAttribute("id", "row-" + i);
     gridDiv.appendChild(rowDiv);
 
     for (var j = 0; j < this.size; j++) {
       var cell = row[j];
 
       var cellDiv = document.createElement("div");
-        cellDiv.setAttribute("id", i + "," + j);
         cellDiv.setAttribute("class", "cell");
+        cellDiv.setAttribute("id", i + "," + j);
 
       if (cell.alive) {
         cellDiv.setAttribute("style", "background-color:" + cell.color)
@@ -270,13 +270,18 @@ function initiateGridSize() {
   controlsDiv.removeChild(gridSizeDiv);
   // shows game controls
   var buttonDivs = document.getElementsByClassName("button");
-  console.log(buttonDivs);
   for (var i = 0; i < buttonDivs.length; i++) {
     buttonDivs[i].setAttribute("style", "visibility:visible;");
   }
-  console.log(height + "---" + width)
 
-  /// need to figure out how to make this take 2 parameters
+  var gridDiv = document.getElementById("grid");
+  gridDiv.setAttribute("style", "visibility:visible;");
+
+  // need to figure out how to make this take 2 parameters
   // then get grid cells to look right
   game = new Game(50);
+
+  game.initializeDisplay();
+  
+  game.startLoop();
 };
