@@ -216,14 +216,18 @@ Game.prototype.updateAllCells = function() {
   }
 };
 
-Game.prototype.start = function() {
-  this.running = true;
-  game.startLoop();
-};
-
-Game.prototype.pause = function() {
-  this.running = false;
-  clearInterval(loop);
+Game.prototype.pauseOrPlay = function() {
+  var pauseOrPlay = document.getElementById("pauseOrPlay");
+  if (!this.running) {
+    pauseOrPlay.innerHTML = "Pause"
+    this.running = true;
+    game.startLoop();
+  } else {
+    pauseOrPlay.innerHTML = "Play"
+    clearInterval(loop);
+    this.running = false;
+  }
+  
 };
 
 Game.prototype.clear = function() {
