@@ -7,13 +7,17 @@
 </head>
 <body>
   <h1>Conway's Game Of Life</h1>
-  <div class="picker"><input type="color" id="picker"></div>
   <div class="container" id="container">
     <div class="controls">
       <div class="button" onclick="game.start();">Start</div>
       <div class="button" onclick="game.pause();">Pause</div>
       <div class="button" onclick="game.clear();">Clear</div>
       <div class="button"><label>speed fast<input id="speed" type="range" min="0" max="3000" onchange="game.changeSpeed()"/>slow</label></div>
+      <!-- <input name="colorpicker" type="color" id="picker"></div> -->
+      <div class="button">
+        <label id="label" for="color_picker">select a color</label>
+        <input type="color" class="field" name="color_picker" id="color_input">
+      </div>
     </div>
     <div id="grid">
     <!-- this is where all the cells will go -->

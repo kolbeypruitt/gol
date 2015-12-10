@@ -13,6 +13,13 @@ label {
   color: white;
 }
 
+#color_input {
+  background-color: black;
+  width: 500px;
+  border: 0px solid black;
+  display: inline-block;
+  margin: 0px 10px;
+}
 .container {
   display: block;
   margin: auto;
@@ -21,7 +28,16 @@ label {
   padding: 0;
 }
 
-.picker {
+#label {
+  font-size: 14px;
+  position: absolute;
+  top: 5px;
+  left: 245px;
+  color: white;
+}
+
+#picker:focus {
+  outline: none;
 }
 
 #container {
@@ -29,7 +45,6 @@ label {
   text-align: justify;
   -ms-text-justify: distribute-all-lines;
   text-justify: distribute-all-lines;
-  /* just for demo */
   min-width: 612px;
 }
 
@@ -39,9 +54,11 @@ label {
   font-size: 18px;
   vertical-align:middle;
   border-radius: 15px;
-  margin: 10px 10px;
+  margin: 6px 6px;
   color: white;
-}
+  position: relative;
+
+  }
 
 .button:hover {
   cursor: pointer;
@@ -103,12 +120,3 @@ label {
   width: inherit;
   transition: all 0.3s;
 }
-
-/*.cell:hover:before {
-  background: red;
-}
-*/
-
-/*#p1 {background-color:rgba(255,0,0,0.3);}
-#p2 {background-color:rgba(0,255,0,0.3);}
-#p3 {background-color:rgba(0,0,255,0.3);}*/
