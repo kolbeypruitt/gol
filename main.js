@@ -52,18 +52,19 @@ Game.prototype.getNeighborsDna = function(cell, neighborArr) {
   }
 };
 
-function Game (size) {
+function Game (height, width) {
   this.running = false;
-  this.size = size;
-  this.grid = this.generateGrid(size);
+  this.height = height;
+  this.width = width;
+  this.grid = this.generateGrid(height, width);
   this.directions = [ [-1, -1], [-1, 0], [-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1] ];
 };
 
-Game.prototype.generateGrid = function(size) {
+Game.prototype.generateGrid = function(height, width) {
   var grid = [];
-  for (var i = 0; i < size; i++) {
+  for (var i = 0; i < height; i++) {
     var row = [];
-    for (var j = 0; j < size; j++) {
+    for (var j = 0; j < width; j++) {
       row.push(new Cell());
     }
     grid.push(row);
@@ -86,14 +87,14 @@ Game.prototype.initializeDisplay = function() {
   while (gridDiv.hasChildNodes())
   gridDiv.removeChild(gridDiv.lastChild);
 
-  for (var i = 0; i < this.size; i++) {
+  for (var i = 0; i < this.height; i++) {
     var row = this.grid[i];
     var rowDiv = document.createElement("div");
     rowDiv.setAttribute("class", "row");
     rowDiv.setAttribute("id", "row-" + i);
     gridDiv.appendChild(rowDiv);
 
-    for (var j = 0; j < this.size; j++) {
+    for (var j = 0; j < this.width; j++) {
       var cell = row[j];
 
       var cellDiv = document.createElement("div");
@@ -125,10 +126,10 @@ Game.prototype.initializeDisplay = function() {
 
 Game.prototype.reRender = function() {
 
-  for (var i = 0; i < this.size; i++) {
+  for (var i = 0; i < this.height; i++) {
     var row = this.grid[i];
 
-    for (var j = 0; j < this.size; j++) {
+    for (var j = 0; j < this.width; j++) {
       var cell = row[j];
       cell.opacity = cell.opacity + 0.1;
       if (cell.changed) {
@@ -166,7 +167,7 @@ Game.prototype.threeNeighbors = function(r,c) {
 };
 
 Game.prototype.isInBounds = function(r,c) {
-  return r >= 0 && r < this.size && c >= 0 && c < this.size;
+  return r >= 0 && r < this.height && c >= 0 && c < this.width;
 };
 
 Game.prototype.updateNeighborsForCell = function(r,c) {
@@ -191,8 +192,8 @@ Game.prototype.updateNeighborsForCell = function(r,c) {
 };
 
 Game.prototype.updateNeighbors = function() {
-  for (var i = 0; i < this.size; i++) {
-    for (var j = 0; j < this.size; j++) {
+  for (var i = 0; i < this.height; i++) {
+    for (var j = 0; j < this.width; j++) {
       this.updateNeighborsForCell(i,j);
     }
   }
@@ -208,8 +209,8 @@ Game.prototype.updateCell = function(r,c) {
 };
 
 Game.prototype.updateAllCells = function() {
-  for (var i = 0; i < this.size; i++) {
-    for (var j = 0; j < this.size; j++) {
+  for (var i = 0; i < this.height; i++) {
+    for (var j = 0; j < this.width; j++) {
       this.updateCell(i,j)
     }
   }
@@ -250,17 +251,6 @@ Game.prototype.changeSpeed = function() {
   game.startLoop();
 };
 
-window.onload = function() {
-
-  // game = new Game(50);
-
-  // game.initializeDisplay();
-  
-  // game.startLoop();
-
-  
-};
-
 function initiateGridSize() {
   var height = document.getElementById("height").value;
   var width = document.getElementById("width").value;
@@ -277,9 +267,8 @@ function initiateGridSize() {
   var gridDiv = document.getElementById("grid");
   gridDiv.setAttribute("style", "visibility:visible;");
 
-  // need to figure out how to make this take 2 parameters
-  // then get grid cells to look right
-  game = new Game(50);
+
+  game = new Game(height, width);
 
   game.initializeDisplay();
   
