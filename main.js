@@ -111,7 +111,7 @@ Game.prototype.initializeDisplay = function() {
       rowDiv.appendChild(cellDiv);
 
       cellDiv.addEventListener("click", function(){
-        var pickColor = document.getElementById("picker").value;
+        var pickColor = document.getElementById("color_input").value;
         var coords = game.getCoord(this.getAttribute('id'));
         var cell = game.grid[coords[0]][coords[1]];
         cell.color = pickColor;
@@ -230,7 +230,7 @@ Game.prototype.pause = function() {
 };
 
 Game.prototype.clear = function() {
-  game = new Game(50);
+  game = new Game(60);
   game.initializeDisplay();
   game.startLoop();
 };
@@ -256,7 +256,7 @@ Game.prototype.changeSpeed = function() {
 
 window.onload = function() {
 
-  game = new Game(50);
+  game = new Game(60);
 
   game.initializeDisplay();
   

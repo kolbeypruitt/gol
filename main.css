@@ -5,8 +5,9 @@ h1 {
 
 body {
   background-image: url("http://wallpapercave.com/wp/afyhOaU.jpg");
-  background-size: 1200px 800px;
-  background-repeat: no-repeat;
+  background-size: 1200px 700px;
+  background-attachment: fixed;
+  no-repeat fixed top left;
 }
 
 label {
@@ -15,10 +16,11 @@ label {
 
 #color_input {
   background-color: black;
-  width: 500px;
+  width: 80%;
   border: 0px solid black;
   display: inline-block;
   margin: 0px 10px;
+  margin-bottom: 1px;
 }
 .container {
   display: block;
@@ -32,27 +34,27 @@ label {
   font-size: 14px;
   position: absolute;
   top: 5px;
-  left: 245px;
+  left: 42%;
   color: white;
 }
 
-#picker:focus {
+#color_input:focus {
   outline: none;
 }
 
 #container {
-  height: 500px;
+  height: 1000px;
   text-align: justify;
   -ms-text-justify: distribute-all-lines;
   text-justify: distribute-all-lines;
-  min-width: 612px;
+  min-width: 800px;
 }
 
 .button {
   background-color: black;
   text-align: center;
   font-size: 18px;
-  vertical-align:middle;
+  vertical-align: middle;
   border-radius: 15px;
   margin: 6px 6px;
   color: white;
@@ -65,7 +67,7 @@ label {
 }
 
 #grid {
-  width: 50%;
+  width: 60%;
   margin: 0 auto;
   display: block;
   padding: 0;
@@ -76,7 +78,7 @@ label {
   border-radius: 15px;
   background-color: grey;
   opacity: 0.8;
-  width: 50%;
+  width: 60%;
   margin: 10px auto;
   display: block;
   padding: 8px
@@ -85,14 +87,10 @@ label {
 .cell {
   height: 1vw;
   width: 1vw;
+  opacity: 0.1;
   background: white;
   display: inline-block;
-  text-align: center;
-  line-height: 1vw;
-  font-size: 2vw;
   margin: -1px;
-  margin-top: -1vw;
-  position: relative;
   border: 1px solid black;
 }
 
