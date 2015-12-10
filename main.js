@@ -226,7 +226,12 @@ Game.prototype.pauseOrPlay = function() {
 };
 
 Game.prototype.clear = function() {
-  game = new Game(50);
+  // incase the game was cleared while running
+  var pauseOrPlay = document.getElementById("pauseOrPlay");
+  pauseOrPlay.innerHTML = "Play"
+  this.running = false;
+
+  game = new Game(this.height, this.width);
   game.initializeDisplay();
   game.startLoop();
 };

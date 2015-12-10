@@ -4,6 +4,7 @@ h1 {
 }
 
 body {
+  z-index: -50;
   background-image: url("http://wallpapercave.com/wp/afyhOaU.jpg");
   background-size: 1200px 700px;
   background-attachment: fixed;
@@ -19,8 +20,8 @@ label {
   width: 80%;
   border: none;
   display: inline-block;
-  margin: 0px 10px;
   margin-bottom: 1px;
+  z-index: 10;
 }
 
 .container {
