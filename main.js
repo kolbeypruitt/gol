@@ -34,10 +34,6 @@ Cell.prototype.buildDna = function(r,g,b) {
   this.color +=b;
 };
 
-// Cell.prototype.readDna = function() {
-//   // body...
-// };
-
 Game.prototype.getNeighborsDna = function(cell, neighborArr) {
   if (neighborArr.length===3) {
     for (var i = 0; i < neighborArr.length; i++) {
@@ -230,7 +226,7 @@ Game.prototype.pause = function() {
 };
 
 Game.prototype.clear = function() {
-  game = new Game(60);
+  game = new Game(50);
   game.initializeDisplay();
   game.startLoop();
 };
@@ -256,9 +252,31 @@ Game.prototype.changeSpeed = function() {
 
 window.onload = function() {
 
-  game = new Game(60);
+  // game = new Game(50);
 
-  game.initializeDisplay();
+  // game.initializeDisplay();
   
-  game.startLoop();
+  // game.startLoop();
+
+  
+};
+
+function initiateGridSize() {
+  var height = document.getElementById("height").value;
+  var width = document.getElementById("width").value;
+  // hides grid size selection
+  var controlsDiv = document.getElementById("controls");
+  var gridSizeDiv = document.getElementById("grid_size");
+  controlsDiv.removeChild(gridSizeDiv);
+  // shows game controls
+  var buttonDivs = document.getElementsByClassName("button");
+  console.log(buttonDivs);
+  for (var i = 0; i < buttonDivs.length; i++) {
+    buttonDivs[i].setAttribute("style", "visibility:visible;");
+  }
+  console.log(height + "---" + width)
+
+  /// need to figure out how to make this take 2 parameters
+  // then get grid cells to look right
+  game = new Game(50);
 };

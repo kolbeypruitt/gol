@@ -8,12 +8,31 @@
 <body>
   <h1>Conway's Game Of Life</h1>
   <div class="container" id="container">
-    <div class="controls">
+    <div class="controls" id="controls">
+      <div class="grid_size" id="grid_size">
+        <p>please select the grid size you would like:</p>
+        <label for="height">height</label>
+        <select name="height" id="height" value="undefined">
+          <option value="10">10</option>
+          <option value="10">15</option>
+          <option value="10">20</option>
+          <option value="10">25</option>
+        </select>
+        <label for="width">width</label>
+        <select name="width" id="width" value="undefined">
+          <option value="10">10</option>
+          <option value="10">15</option>
+          <option value="10">20</option>
+          <option value="10">25</option>
+        </select>
+        <section class="border">
+            <button onclick="initiateGridSize()">Button</button>
+        </section>
+      </div>
       <div class="button" onclick="game.start();">Start</div>
       <div class="button" onclick="game.pause();">Pause</div>
       <div class="button" onclick="game.clear();">Clear</div>
       <div class="button"><label>Fast<input id="speed" type="range" min="0" max="3000" onchange="game.changeSpeed()"/>Slow</label></div>
-      <!-- <input name="colorpicker" type="color" id="picker"></div> -->
       <div class="button">
         <label id="label" for="color_picker">select a color</label>
         <input type="color" class="field" name="color_picker" id="color_input">
