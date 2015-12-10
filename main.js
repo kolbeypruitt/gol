@@ -146,11 +146,6 @@ Game.prototype.reRender = function() {
   }
 };
 
-// if less than 2 neighbors, cell dies -- twoNeighbors(x,y)
-// if more than 3 neighbors, cell dies
-// if dead, and exactly 3 neighbors, cell is reborn
-// update neighbors for cells**
-
 Game.prototype.twoNeighbors = function(r,c) {
   var cell = this.grid[r][c];
   return cell.neighbors < 2;

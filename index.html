@@ -45,9 +45,9 @@
       </div>
       <div class="button" id="pauseOrPlay" onclick="game.pauseOrPlay();">Start</div>
       <!-- <div class="button" onclick="game.pause();">Pause</div> -->
-      <div class="button" onclick="game.clear();">Clear</div>
+      <div class="button" onclick="game.clear()">Clear</div>
       <div class="button"><label>Fast<input id="speed" type="range" min="0" max="3000" onchange="game.changeSpeed()"/>Slow</label></div>
-      <div class="button">
+      <div class="button" id="pickerDiv">
         <label id="label" for="color_picker">select a color</label>
         <input type="color" class="field" name="color_picker" id="color_input">
       </div>

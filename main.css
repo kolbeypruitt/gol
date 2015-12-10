@@ -49,7 +49,6 @@ label {
 
 .button {
   position: relative;
-  z-index: 10;
   background-color: black;
   text-align: center;
   vertical-align: middle;
@@ -97,6 +96,7 @@ section.border button.active {
   text-align: center;
   vertical-align: middle;
   color: white;
+  height: 1px;
 }
 
 #grid {
@@ -116,6 +116,7 @@ div.row:after {
   clear: both;
 }
 
+/*this is cells*/
 div.row div {
   background-color: transparent;
   border: 1px solid black;
