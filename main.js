@@ -7,16 +7,16 @@ function Cell () {
 };
 
 Cell.prototype.toggleAlive = function(override) {
+  this.opacity = 0.1;
   if (override===undefined) {
     if (this.alive===true) {
-        this.alive = false;
-        this.opacity = 0.1;
-        this.changed = true;
-      } else {
-        this.alive = true;
-        this.changed = true;
-      }
+      this.alive = false;
+      this.changed = true;
     } else {
+      this.alive = true;
+      this.changed = true;
+    }
+  } else {
     if (this.alive!==override) {
       this.changed = true;
       this.alive = override;
