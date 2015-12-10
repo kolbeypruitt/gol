@@ -82,6 +82,12 @@ Game.prototype.getCoord = function(cellDivId) {
 };
 
 Game.prototype.initializeDisplay = function() {
+  var color_input = document.getElementById('color_input');
+  var pickerDiv = document.getElementById('pickerDiv');
+  pickerDiv.addEventListener("click", function(){
+    color_input.click()
+    this.setAttribute("style", "visibility:visible; background-color:" + color_input.value);
+  }, false);
 
   var gridDiv = document.getElementById("grid");
   while (gridDiv.hasChildNodes())

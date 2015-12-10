@@ -21,7 +21,7 @@ label {
   border: none;
   display: inline-block;
   margin-bottom: 1px;
-  z-index: 10;
+  visibility: hidden;
 }
 
 .container {
