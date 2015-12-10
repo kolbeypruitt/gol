@@ -43,13 +43,8 @@ label {
 }
 
 #container {
-/*  height: 1000px;
-  text-align: justify;
-  -ms-text-justify: distribute-all-lines;
-  text-justify: distribute-all-lines;
-  min-width: 800px;*/
-  /*width: auto;*/
   display: inline-block;
+  text-align: center
 }
 
 .button {
@@ -105,8 +100,6 @@ section.border button.active {
 }
 
 #grid {
-/*  width: 567.7px;
-  height: 567.7px;*/
   width: auto;
   display: inline-block;
   border: 3px solid grey;
