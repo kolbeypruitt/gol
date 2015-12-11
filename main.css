@@ -1,6 +1,7 @@
 h1 {
   text-align: center;
   color: white;
+  margin: 0px 0px;
 }
 
 body {
@@ -106,7 +107,7 @@ section.border button.active {
   width: auto;
   display: inline-block;
   border: 3px solid grey;
-  background: black;
+  background: white;
   margin: 0px auto;
   visibility: hidden;
 }

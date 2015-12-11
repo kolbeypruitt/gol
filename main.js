@@ -4,7 +4,7 @@ function Game (height, width) {
   this.width = width;
   this.grid = this.generateGrid(height, width);
   this.directions = [ [-1, -1], [-1, 0], [-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1] ];
-  this.gridColor = "black";
+  this.gridColor = "white";
 };
 
 function Cell () {
