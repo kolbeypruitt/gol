@@ -283,6 +283,8 @@ Game.prototype.watcher = function () {
     // watches for color input changes and updates the pickerDiv
     var color_input = document.getElementById('color_input');
     var pickerDiv = document.getElementById('pickerDiv');
+
+    pickerDiv.setAttribute("style", "visibility:visible; background-color:" + color_input.value);
   }, 500)
   
 };
