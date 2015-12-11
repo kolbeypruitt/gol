@@ -60,6 +60,11 @@ label {
   cursor: pointer;
 }
 
+.colorPickerWrapper div {
+  display: inline-block;
+  width: 46%;
+}
+
 section.border button {
   color: white;
   background: rgba(0,0,0,0);

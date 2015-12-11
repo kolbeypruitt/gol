@@ -1,3 +1,12 @@
+function Game (height, width) {
+  this.running = false;
+  this.height = height;
+  this.width = width;
+  this.grid = this.generateGrid(height, width);
+  this.directions = [ [-1, -1], [-1, 0], [-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1] ];
+  this.gridColor = "white";
+};
+
 function Cell () {
   this.changed = false;
   this.alive = false;
@@ -52,14 +61,6 @@ Game.prototype.getNeighborsDna = function(cell, neighborArr) {
   }
 };
 
-function Game (height, width) {
-  this.running = false;
-  this.height = height;
-  this.width = width;
-  this.grid = this.generateGrid(height, width);
-  this.directions = [ [-1, -1], [-1, 0], [-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1] ];
-};
-
 Game.prototype.generateGrid = function(height, width) {
   var grid = [];
   for (var i = 0; i < height; i++) {
@@ -84,9 +85,22 @@ Game.prototype.getCoord = function(cellDivId) {
 Game.prototype.initializeDisplay = function() {
   var color_input = document.getElementById('color_input');
   var pickerDiv = document.getElementById('pickerDiv');
+  var gridColorDiv = document.getElementById('gridColor');
+
   pickerDiv.addEventListener("click", function(){
     color_input.click()
     this.setAttribute("style", "visibility:visible; background-color:" + color_input.value);
+  }, false);
+
+  var game = this;
+  gridColorDiv.addEventListener("click", function(){
+    if (game.gridColor==="black") {
+      game.gridColor = "white";
+    } else if (game.gridColor==="white") {
+      game.gridColor = "black";
+    } 
+    console.log(game.gridColor);
+    // this.setAttribute("style", "visibility:visible; background-color:" + game.gridColor);
   }, false);
 
   var gridDiv = document.getElementById("grid");
@@ -263,12 +277,26 @@ Game.prototype.changeSpeed = function() {
 
 Game.prototype.watcher = function () {
   watcherLoop = setInterval(function () {
+
+    // watches for color input changes and updates the pickerDiv
     var color_input = document.getElementById('color_input');
     var pickerDiv = document.getElementById('pickerDiv');
     pickerDiv.setAttribute("style", "visibility:visible; background-color:" + color_input.value);
-  }, 250)
+
+    // 
+    var gridColorDiv = document.getElementById('gridColor');
+    // gridColorDiv.setAttribute("style", "visibility:visible; background-color:" + game.gridColor);
+  }, 500)
   
 };
+
+// Game.prototype.toggleGridColor = function() {
+//   if (this.gridColor==="black") {
+//     this.gridColor = "white";
+//   } else {
+//     this.gridColor = "black";
+//   }
+// };
 
 function initiateGridSize() {
   var height = document.getElementById("height").value;

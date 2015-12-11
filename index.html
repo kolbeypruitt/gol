@@ -47,9 +47,11 @@
       <!-- <div class="button" onclick="game.pause();">Pause</div> -->
       <div class="button" onclick="game.clear()">Clear</div>
       <div class="button"><label>Fast<input id="speed" type="range" min="0" max="3000" onchange="game.changeSpeed()"/>Slow</label></div>
-      <div class="button" id="pickerDiv">
-      select a color
+      <div class="colorPickerWrapper">
+        <div class="button" id="pickerDiv">cell color</div>
+        <div class="button" id="gridColor">toggle grid color</div>
       </div>
+      <!-- <div class="button" id="pickerDiv">select a color</div> -->
     </div>
     <div id="grid">
     <!-- this is where all the cells will go -->
