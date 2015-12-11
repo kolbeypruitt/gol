@@ -4,7 +4,7 @@ function Game (height, width) {
   this.width = width;
   this.grid = this.generateGrid(height, width);
   this.directions = [ [-1, -1], [-1, 0], [-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1] ];
-  this.gridColor = "white";
+  this.gridColor = "black";
 };
 
 function Cell () {
@@ -92,15 +92,17 @@ Game.prototype.initializeDisplay = function() {
     this.setAttribute("style", "visibility:visible; background-color:" + color_input.value);
   }, false);
 
-  var game = this;
   gridColorDiv.addEventListener("click", function(){
     if (game.gridColor==="black") {
       game.gridColor = "white";
     } else if (game.gridColor==="white") {
       game.gridColor = "black";
-    } 
-    console.log(game.gridColor);
-    // this.setAttribute("style", "visibility:visible; background-color:" + game.gridColor);
+    }
+    var cells = document.getElementsByClassName("cell");
+    console.log(cell);
+    for (var i = 0; i < cells.length; i++) {
+      cells[i].setAttribute("style", "visibility:visible; border: 1px solid grey; background-color:" + game.gridColor);
+    }
   }, false);
 
   var gridDiv = document.getElementById("grid");
@@ -136,7 +138,7 @@ Game.prototype.initializeDisplay = function() {
         if (cell.alive) {
           this.setAttribute("style", "background-color:" + cell.color)
         } else {
-          this.setAttribute("style", "background-color:white");
+          this.setAttribute("style", "background-color:" + game.gridColor);
         }
         
       });
@@ -157,7 +159,7 @@ Game.prototype.reRender = function() {
         if (cell.alive) {
           cellDiv.setAttribute("style", "background-color:" + cell.color + "; opacity:" + cell.opacity);
         } else {
-          cellDiv.setAttribute("style", "background-color: white;")
+          cellDiv.setAttribute("style", "background-color:" + game.gridColor);
         }
       } else {
         cell.changed = false;
@@ -281,22 +283,9 @@ Game.prototype.watcher = function () {
     // watches for color input changes and updates the pickerDiv
     var color_input = document.getElementById('color_input');
     var pickerDiv = document.getElementById('pickerDiv');
-    pickerDiv.setAttribute("style", "visibility:visible; background-color:" + color_input.value);
-
-    // 
-    var gridColorDiv = document.getElementById('gridColor');
-    // gridColorDiv.setAttribute("style", "visibility:visible; background-color:" + game.gridColor);
   }, 500)
   
 };
-
-// Game.prototype.toggleGridColor = function() {
-//   if (this.gridColor==="black") {
-//     this.gridColor = "white";
-//   } else {
-//     this.gridColor = "black";
-//   }
-// };
 
 function initiateGridSize() {
   var height = document.getElementById("height").value;

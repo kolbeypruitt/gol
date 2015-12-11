@@ -106,7 +106,7 @@ section.border button.active {
   width: auto;
   display: inline-block;
   border: 3px solid grey;
-  background: white;
+  background: black;
   margin: 0px auto;
   visibility: hidden;
 }
@@ -122,7 +122,7 @@ div.row:after {
 /*this is cells*/
 div.row div {
   background-color: transparent;
-  border: 1px solid black;
+  border: 1px solid grey;
   float: left;
   width: 10px;
   height: 10px;
