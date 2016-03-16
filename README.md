@@ -21,5 +21,11 @@ for more info about John Conway and his Game of Life
 ## Steps
 
 #### 1. Choose a grid size.
-![text](/readmeImg/step_1.png)
-#### 2. 
+![step_1](/readmeImg/step_1.png)
+#### 2. Select different colors and place live cell on the board.
+![step_2](/readmeImg/step_2.png)
+#### 3. Pause, adjust speed, or toggle grid color at any time.
+![step_2](/readmeImg/step_3.png)
+#### 4. Try some of the recommended patterns to get better results.
+![step_2](/readmeImg/step_4.png)
+
