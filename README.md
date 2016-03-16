@@ -17,3 +17,9 @@
 for more info about John Conway and his Game of Life
 
 ##### This implimentation takes Conway's basic rules a step further by making newborn cells inherit their color based on the taking an R, G, and B color value from each of its 3 neighbors. The newborns also start out with 10% opacity which increases 10% each turn until it reaches 100% or dies.
+
+## Steps
+
+#### 1. Choose a grid size.
+![gridSize](/readmeImg/step_1.png)
+#### 2. 
