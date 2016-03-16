@@ -21,5 +21,5 @@ for more info about John Conway and his Game of Life
 ## Steps
 
 #### 1. Choose a grid size.
-![gridSize](/readmeImg/step_1.png)
+![gridSize](https://github.com/kolbeypruitt/gol/blob/master/step_1.png)
 #### 2. 
